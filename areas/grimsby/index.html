@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- area_page_meta_title is set per-area by stage4 -->
+  <title>Astro Turf Grimsby | Twelve Mile Turf Co.</title>
+  <meta name="description" content="St. Catharines' trusted astro turf installers. Free same-week estimates, 10-year warranty, serving the Niagara Region since 2015. Call Twelve Mile Turf Co. today.">
+  <style>
+    /* ═══════════════════════════════════════════════════════════════
+   _shared.css — Shared design system injected into every template
+   Injected by stage4_assemble.py via shared_css pre-injection.
+   All design tokens are resolved in the same pass as
+   the rest of the template.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── DESIGN TOKENS ──────────────────────────────────────────────────────────── */
+:root {
+  --color-primary:   #2E5B3A;
+  --color-accent:    #D97B2A;
+  --color-bg:        #F8F6F2;
+  --color-text:      #1A1A1A;
+  --font-heading:    'Lora', Georgia, serif;
+  --font-body:       'Open Sans', system-ui, sans-serif;
+  --white:           #ffffff;
+  --border:          #e0dbd2;
+  --text-mid:        #444444;
+  --text-light:      #777777;
+  --shadow-sm:       0 2px 8px rgba(0,0,0,0.08);
+  --shadow-md:       0 4px 20px rgba(0,0,0,0.14);
+  --radius:          4px;
+  --max-w:           1200px;
+  --transition:      0.2s ease;
+}
+
+/* ── RESET & BASE ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--color-text);
+  background: var(--white);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  line-height: 1.2;
+  color: var(--color-text);
+}
+
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+ul { list-style: none; }
+
+/* ── LAYOUT UTILITIES ───────────────────────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-pad    { padding: 72px 0; }
+.section-pad-sm { padding: 48px 0; }
+
+/* ── TYPOGRAPHY HELPERS ─────────────────────────────────────────────────────── */
+.section-eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-size: 17px;
+  color: var(--text-mid);
+  max-width: 560px;
+}
+
+/* ── BUTTONS ────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--transition), filter var(--transition), box-shadow var(--transition), background var(--transition);
+}
+.btn:hover  { transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+.btn:active { transform: translateY(0); }
+
+.btn-primary { background: var(--color-accent); color: var(--white); }
+.btn-primary:hover { filter: brightness(0.88); }
+
+.btn-outline-white {
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  background: transparent;
+  color: var(--white);
+  border: 2px solid rgba(255,255,255,0.7);
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background var(--transition), border-color var(--transition);
+}
+.btn-outline-white:hover { background: rgba(255,255,255,0.12); border-color: var(--white); }
+
+.btn-outline-dark {
+  background: transparent;
+  color: var(--color-primary);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  height: 50px;
+  padding: 0 28px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background var(--transition), color var(--transition);
+}
+.btn-outline-dark:hover { background: var(--color-primary); color: var(--white); }
+
+/* ── CTA BAND — SHARED STRUCTURAL STYLES ────────────────────────────────────── */
+#cta-band { padding: 56px 0; }
+
+/* Band layout variant (home / about) */
+.cta-band-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.cta-band-headline {
+  font-family: var(--font-heading);
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  color: var(--white);
+}
+
+.cta-band-sub { font-size: 16px; color: rgba(255,255,255,0.75); margin-top: 6px; }
+
+.cta-band-actions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-shrink: 0;
+}
+
+.cta-band-phone {
+  color: rgba(255,255,255,0.9);
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Centered band variant (service / reviews / faq / area / contact) */
+.cta-band-btn {
+  display: inline-flex;
+  align-items: center;
+  height: 52px;
+  padding: 0 32px;
+  background: var(--white);
+  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  text-decoration: none;
+  transition: background var(--transition), transform var(--transition);
+}
+.cta-band-btn:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+
+/* ── NAVIGATION ─────────────────────────────────────────────────────────────── */
+#site-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  background: var(--color-primary);
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  height: 68px;
+  gap: 16px;
+}
+
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.nav-logo-text {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.1;
+}
+.nav-logo-text span { color: var(--color-accent); }
+
+.nav-links {
+  display: flex;
+  gap: 4px;
+  margin: 0 auto;
+}
+
+.nav-links a {
+  color: rgba(255,255,255,0.8);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 10px;
+  border-radius: var(--radius);
+  white-space: nowrap;
+  transition: background var(--transition), color var(--transition);
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"],
+.nav-links a[aria-current] { background: rgba(255,255,255,0.1); color: var(--white); }
+
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.nav-phone {
+  color: rgba(255,255,255,0.85);
+  font-size: 14px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.nav-phone svg { flex-shrink: 0; }
+
+/* Mobile hamburger */
+.nav-hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  padding: 8px;
+  background: none;
+  border: none;
+  margin-left: auto;
+}
+.nav-hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+/* Mobile menu */
+.nav-mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: var(--color-primary);
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 12px 0 20px;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+  color: rgba(255,255,255,0.85);
+  padding: 12px 24px;
+  font-size: 15px;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.nav-mobile-menu .mobile-cta { margin: 12px 24px 0; }
+
+/* ── FOOTER ─────────────────────────────────────────────────────────────────── */
+#site-footer {
+  background: var(--color-primary);
+  color: rgba(255,255,255,0.75);
+}
+
+.footer-top { padding: 56px 0 40px; }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+
+.footer-col h4 {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--white);
+  margin-bottom: 18px;
+}
+.footer-col p { font-size: 14px; line-height: 1.7; margin-bottom: 16px; }
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col ul li a {
+  font-size: 14px;
+  color: rgba(255,255,255,0.65);
+  transition: color var(--transition);
+}
+.footer-col ul li a:hover { color: var(--white); }
+
+.footer-nap { font-size: 13px; line-height: 1.9; color: rgba(255,255,255,0.65); }
+
+.footer-social { display: flex; gap: 10px; margin-top: 16px; }
+.footer-social a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,0.6);
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.footer-social a:hover {
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.4);
+  color: var(--white);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+/* ── MOBILE FLOATING CTA ────────────────────────────────────────────────────── */
+#mobile-cta {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 888;
+  background: var(--color-accent);
+  color: var(--white);
+  text-align: center;
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  box-shadow: 0 -3px 16px rgba(0,0,0,0.18);
+  text-decoration: none;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* ── SHARED COMPONENTS ──────────────────────────────────────────────────────── */
+
+/* Testimonial cards (used by home, about, area) */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.testimonial-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+.testimonial-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.stars { color: var(--color-accent); font-size: 18px; letter-spacing: 2px; margin-bottom: 14px; }
+
+.testimonial-quote {
+  font-size: 15px;
+  color: var(--text-mid);
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.testimonial-author { display: flex; align-items: center; gap: 12px; }
+
+.author-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--color-bg);
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.author-name  { font-weight: 700; font-size: 14px; color: var(--color-text); }
+.author-location { font-size: 12px; color: var(--text-light); }
+
+/* Team cards (used by home, about) */
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+.team-card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--color-bg);
+  transition: box-shadow var(--transition);
+}
+.team-card:hover { box-shadow: var(--shadow-md); }
+
+.team-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin: 0 auto 16px;
+  background: var(--color-bg);
+  border: 3px solid var(--white);
+  box-shadow: var(--shadow-sm);
+}
+
+.team-name  { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+.team-role  { font-size: 13px; color: var(--color-accent); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px; }
+.team-bio   { font-size: 14px; color: var(--text-mid); line-height: 1.65; }
+
+/* ── ACCESSIBILITY ──────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html { scroll-behavior: auto; }
+}
+
+/* ── BASE RESPONSIVE ────────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+  .testimonials-grid { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 768px) {
+  .section-pad { padding: 48px 0; }
+
+  /* Nav */
+  .nav-links, .nav-phone, .nav-actions .btn { display: none; }
+  .nav-hamburger { display: flex; }
+
+  /* CTA band */
+  .cta-band-inner  { flex-direction: column; text-align: center; }
+  .cta-band-actions { flex-direction: column; width: 100%; }
+  .cta-band-actions .btn { width: 100%; }
+
+  /* Team */
+  .team-grid { grid-template-columns: 1fr; max-width: 400px; }
+
+  /* Testimonials */
+  .testimonials-grid { grid-template-columns: 1fr; }
+
+  /* Footer */
+  .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+  .footer-bottom { flex-direction: column; text-align: center; }
+
+  /* Mobile floating CTA */
+  #mobile-cta { display: flex; }
+  body { padding-bottom: 58px; }
+}
+
+    /* ── AREA PAGE ───────────────────────────────────────────────────────────── */
+    .area-hero { position: relative; background: var(--color-primary) center/cover no-repeat; min-height: 400px; display: flex; align-items: center; }
+    .area-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%); }
+    .area-hero .container { position: relative; z-index: 1; padding-top: 80px; padding-bottom: 56px; text-align: center; }
+    .area-hero .section-eyebrow { color: var(--color-accent); }
+    .area-hero h1 { font-size: clamp(28px,5vw,50px); font-weight: 700; color: var(--white); margin-bottom: 14px; }
+    .area-hero p { font-size: 18px; color: rgba(255,255,255,0.85); max-width: 560px; margin: 0 auto 28px; }
+    .area-intro { padding: 72px 0; background: var(--color-bg); }
+    .area-intro-grid { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+    .area-intro-body { font-size: 17px; line-height: 1.8; color: var(--text-mid); }
+    .area-cta-card { background: var(--color-primary); border-radius: var(--radius); padding: 32px 28px; color: var(--white); }
+    .area-cta-card h3 { font-size: 20px; color: var(--white); margin-bottom: 10px; }
+    .area-cta-card p { font-size: 15px; color: rgba(255,255,255,0.8); margin-bottom: 20px; }
+    .area-cta-phone { display: flex; align-items: center; gap: 10px; color: var(--color-accent); font-size: 18px; font-weight: 700; margin-bottom: 14px; text-decoration: none; }
+    .area-services { padding: 72px 0; }
+    .area-services-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 36px; }
+    .area-service-card { background: var(--color-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 20px; transition: border-color var(--transition), transform var(--transition), box-shadow var(--transition); }
+    .area-service-card:hover { border-color: var(--color-accent); transform: translateY(-2px); box-shadow: var(--shadow-sm); }
+    .area-service-card h3 { font-size: 17px; font-weight: 700; color: var(--color-primary); margin-bottom: 8px; }
+    .area-service-card p { font-size: 14px; color: var(--text-mid); margin-bottom: 14px; line-height: 1.6; }
+    .area-service-card a { font-size: 14px; font-weight: 700; color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+    .area-testimonials { padding: 72px 0; background: var(--color-bg); }
+    .area-testimonials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 36px; }
+    .area-testimonial-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; box-shadow: var(--shadow-sm); }
+    .area-testimonial-stars { color: var(--color-accent); font-size: 16px; margin-bottom: 10px; }
+    .area-testimonial-quote { font-size: 15px; line-height: 1.7; font-style: italic; color: var(--text-mid); margin-bottom: 16px; }
+    .area-testimonial-meta { font-size: 14px; font-weight: 700; color: var(--color-text); }
+    .area-testimonial-location { font-size: 13px; color: var(--text-light); }
+    .area-nearby { padding: 56px 0; }
+    .area-nearby h2 { font-size: 22px; margin-bottom: 20px; }
+    .nearby-pills { display: flex; flex-wrap: wrap; gap: 10px; }
+    .nearby-pill { display: inline-block; padding: 8px 16px; border: 1px solid var(--border); border-radius: 20px; font-size: 14px; color: var(--text-mid); text-decoration: none; transition: background var(--transition), color var(--transition), border-color var(--transition); }
+    .nearby-pill:hover { background: var(--color-primary); color: var(--white); border-color: var(--color-primary); }
+
+    /* CTA band */
+    #cta-band { background: var(--color-accent); padding: 60px 0; text-align: center; }
+    #cta-band h2 { font-family: var(--font-heading); font-size: clamp(24px,4vw,36px); font-weight: 700; color: var(--white); margin-bottom: 12px; }
+    #cta-band p { font-size: 17px; color: rgba(255,255,255,0.9); margin-bottom: 28px; }
+
+    @media(max-width:992px){ .area-intro-grid{grid-template-columns:1fr;} .area-services-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:768px){ .area-services-grid{grid-template-columns:1fr;} .area-testimonials-grid{grid-template-columns:1fr;} }
+  </style>
+</head>
+<body>
+<header id="site-nav" role="banner">
+  <div class="container">
+    <nav class="nav-inner" aria-label="Main navigation">
+      <a href="/" class="nav-logo" aria-label="Go to homepage"><div class="nav-logo-text">Twelve Mile Turf Co.</div></a>
+      <ul class="nav-links" role="list">
+        <li><a href="/services/backyard-lawn-installation/">Services</a></li>
+        <li><a href="/about/">About</a></li>
+        <li><a href="/reviews/">Reviews</a></li>
+        <li><a href="/faq/">FAQ</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="tel:+11112223333" class="nav-phone" aria-label="Call us"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+11112223333</a>
+        <a href="/contact/" class="btn btn-primary">Get a Free Quote</a>
+      </div>
+      <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
+    </nav>
+  </div>
+  <nav class="nav-mobile-menu" id="mobile-nav" aria-label="Mobile navigation">
+    <a href="/services/backyard-lawn-installation/" onclick="closeMenu()">Backyard Lawn Installation</a>
+    <a href="/services/front-lawn-turf/" onclick="closeMenu()">Front Lawn Turf</a>
+    <a href="/services/custom-putting-greens/" onclick="closeMenu()">Custom Putting Greens</a>
+    <a href="/services/turf-repairs-maintenance/" onclick="closeMenu()">Turf Repairs & Maintenance</a>
+    <a href="/about/" onclick="closeMenu()">About</a>
+    <a href="/reviews/" onclick="closeMenu()">Reviews</a>
+    <a href="/faq/" onclick="closeMenu()">FAQ</a>
+    <a href="tel:+11112223333" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+11112223333</a>
+    <a href="/contact/" class="btn btn-primary mobile-cta" onclick="closeMenu()">Get a Free Quote</a>
+  </nav>
+</header>
+
+<main id="page-content" style="margin-top:68px;" aria-label="Service area page">
+
+  <!-- ── Area Hero ─────────────────────────────────────────────────────── -->
+  <section class="area-hero" style="background-image:url('images/why_us.jpg');">
+    <div class="container">
+      <span class="section-eyebrow">Service Area</span>
+      <h1>Astro Turf Installation in Grimsby</h1>
+      <p>Low-maintenance lawns for Grimsby and Lakeshore homeowners.</p>
+      <a href="/contact/" class="btn btn-primary">Get a Free Quote</a>
+    </div>
+  </section>
+
+  <!-- ── Local Intro ────────────────────────────────────────────────────── -->
+  <section class="area-intro">
+    <div class="container">
+      <div class="area-intro-grid">
+        <div>
+          <span class="section-eyebrow">Grimsby</span>
+          <h2 class="section-title" style="max-width:none;">Twelve Mile Turf Co. in Grimsby</h2>
+          <p class="area-intro-body">Grimsby sits at the western edge of our service area, and it's a market we know well. Homeowners near the lake and along the escarpment have found that artificial turf handles Grimsby's variable weather far better than natural grass — particularly in the shadier lots under the ridge. If you're in Grimsby and considering a switch to astro turf, Twelve Mile Turf Co. is the closest specialist in the region.</p>
+        </div>
+        <div class="area-cta-card">
+          <h3>Get a Free Estimate</h3>
+          <p>We serve Grimsby and surrounding neighbourhoods. Contact us today for a no-obligation quote.</p>
+          <a href="tel:+11112223333" class="area-cta-phone">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+            +11112223333
+          </a>
+          <a href="/contact/" class="btn btn-primary" style="width:100%; justify-content:center;">Request a Quote</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services in this Area ─────────────────────────────────────────── -->
+  <section class="area-services section-pad" aria-labelledby="area-services-heading">
+    <div class="container">
+      <span class="section-eyebrow">Our Services</span>
+      <h2 id="area-services-heading" class="section-title">Services Available in Grimsby</h2>
+      <div class="area-services-grid">
+        <div class="area-service-card">
+          <h3>Backyard Lawn Installation</h3>
+          <p>Full-service astro turf installation for residential backyards of any size. We handle site prep, drainage, and installation from start to finish.</p>
+          <a href="/services/backyard-lawn-installation/">Learn more →</a>
+        </div>
+        <div class="area-service-card">
+          <h3>Front Lawn Turf</h3>
+          <p>Curb appeal without the maintenance. Our front lawn installations are designed to look natural year-round, even through Niagara winters.</p>
+          <a href="/services/front-lawn-turf/">Learn more →</a>
+        </div>
+        <div class="area-service-card">
+          <h3>Custom Putting Greens</h3>
+          <p>Custom backyard putting greens built to your layout. Specify your design and we'll construct it to spec — perfect for St. Catharines golf enthusiasts.</p>
+          <a href="/services/custom-putting-greens/">Learn more →</a>
+        </div>
+        <div class="area-service-card">
+          <h3>Turf Repairs & Maintenance</h3>
+          <p>Lifting edges, damaged sections, or worn-out infill — we repair and restore astro turf installations across the Niagara Region, including work originally done by other installers.</p>
+          <a href="/services/turf-repairs-maintenance/">Learn more →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Testimonials ───────────────────────────────────────────────────── -->
+  <section class="area-testimonials" aria-labelledby="area-testimonials-heading">
+    <div class="container">
+      <span class="section-eyebrow">Customer Reviews</span>
+      <h2 id="area-testimonials-heading" class="section-title">What Grimsby Customers Say</h2>
+      <div class="area-testimonials-grid">
+        <div class="area-testimonial-card">
+          <div class="area-testimonial-stars">★★★★★</div>
+          <blockquote class="area-testimonial-quote">"We were tired of watering and mowing every week. Tony's crew showed up Monday morning and by Wednesday we had a backyard we actually enjoy. Best decision we made for the house."</blockquote>
+          <div class="area-testimonial-meta">David K.</div>
+          <div class="area-testimonial-location">Port Dalhousie</div>
+        </div>
+        <div class="area-testimonial-card">
+          <div class="area-testimonial-stars">★★★★★</div>
+          <blockquote class="area-testimonial-quote">"Got quotes from three companies and Tony came in mid-range. What sold me was how he explained the drainage prep before starting. Over a year later and it still looks perfect."</blockquote>
+          <div class="area-testimonial-meta">Linda R.</div>
+          <div class="area-testimonial-location">Thorold</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Nearby Areas ───────────────────────────────────────────────────── -->
+  <section class="area-nearby">
+    <div class="container">
+      <h2>Also Serving Nearby Areas</h2>
+      <div class="nearby-pills">
+        <a href="/areas/lincoln/" class="nearby-pill">Lincoln</a>
+        <a href="/areas/pelham/" class="nearby-pill">Pelham</a>
+        <a href="/areas/niagara-on-the-lake/" class="nearby-pill">Niagara-on-the-Lake</a>
+        <a href="/areas/west-lincoln/" class="nearby-pill">West Lincoln</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA Band ───────────────────────────────────────────────────────── -->
+  <section id="cta-band" aria-labelledby="cta-heading">
+    <div class="container">
+      <h2 id="cta-heading">Ready to Transform Your Yard?</h2>
+      <p>Get a free, no-obligation estimate this week. We'll visit your St. Catharines property and provide a written quote within 24 hours.</p>
+      <a href="/contact/" class="cta-band-btn">Get a Free Estimate</a>
+    </div>
+  </section>
+
+</main>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Twelve Mile Turf Co.",
+  "url": "https://twelvemileturf.ca",
+  "telephone": "+11112223333",
+  "areaServed": {"@type": "City", "name": "Grimsby"},
+  "address": {"@type": "PostalAddress", "streetAddress": "St. Catharines, Ontario", "addressLocality": "St. Catharines", "addressRegion": "Ontario", "postalCode": "L2R 1B6", "addressCountry": "CA"},
+  "geo": {"@type": "GeoCoordinates", "latitude": "43.1594", "longitude": "-79.2469"}
+}
+</script>
+
+<footer id="site-footer" role="contentinfo">
+  <div class="footer-top"><div class="container"><div class="footer-grid">
+    <div class="footer-col"><h4>Twelve Mile Turf Co.</h4><p>Niagara Region's trusted astro turf installers since 2015. Family-operated and built on referrals.</p><address class="footer-nap" style="font-style:normal;"><span>St. Catharines, Ontario</span><br><a href="tel:+11112223333" style="color:rgba(255,255,255,0.65);">+11112223333</a><br><a href="mailto:estimates@twelvemileturf.ca" style="color:rgba(255,255,255,0.65);">estimates@twelvemileturf.ca</a></address><div class="footer-social"><a href="https://www.facebook.com/twelvemileturf" aria-label="Facebook" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a href="https://www.instagram.com/twelvemileturf" aria-label="Instagram" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div></div>
+    <div class="footer-col"><h4>Services</h4><ul><li><a href="/services/backyard-lawn-installation/">Backyard Lawn Installation</a></li><li><a href="/services/front-lawn-turf/">Front Lawn Turf</a></li><li><a href="/services/custom-putting-greens/">Custom Putting Greens</a></li><li><a href="/services/turf-repairs-maintenance/">Turf Repairs & Maintenance</a></li></ul></div>
+    <div class="footer-col"><h4>Enquiry</h4><ul><li><a href="/contact/">Request Quote</a></li><li><a href="/about/">About Us</a></li><li><a href="/reviews/">Reviews</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/privacy">Privacy Policy</a></li></ul></div>
+    <div class="footer-col"><h4>Serving the Niagara Region</h4><ul><li><a href="/areas/st-catharines/">St. Catharines</a></li><li><a href="/areas/niagara-falls/">Niagara Falls</a></li><li><a href="/areas/welland/">Welland</a></li><li><a href="/areas/thorold/">Thorold</a></li><li><a href="/areas/lincoln/">Lincoln</a></li><li><a href="/areas/grimsby/">Grimsby</a></li></ul></div>
+  </div></div></div>
+  <div class="container"><div class="footer-bottom"><span>© 2026 Twelve Mile Turf Co.. Licensed &amp; Insured.</span><span>St. Catharines, Ontario, Canada</span></div></div>
+</footer>
+
+<a id="mobile-cta" href="tel:+11112223333" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now — +11112223333</a>
+
+<script>
+  function toggleMenu(btn){var m=document.getElementById('mobile-nav');m.classList.toggle('open');btn.setAttribute('aria-expanded',String(!m.classList.contains('open')));}
+  function closeMenu(){var m=document.getElementById('mobile-nav');m.classList.remove('open');var b=document.querySelector('.nav-hamburger');if(b)b.setAttribute('aria-expanded','false');}
+  window.addEventListener('scroll',function(){var n=document.getElementById('site-nav');n.style.boxShadow=window.scrollY>10?'0 2px 16px rgba(0,0,0,0.25)':'0 2px 12px rgba(0,0,0,0.2)';},{passive:true});
+</script>
+</body>
+</html>
