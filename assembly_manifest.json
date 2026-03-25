@@ -22,7 +22,7 @@
     "areas/wainfleet/index.html"
   ],
   "total_pages": 19,
-  "image_count": 10,
+  "image_count": 29,
   "all_urls": [
     "/",
     "/about/",
@@ -44,5 +44,5 @@
     "/areas/west-lincoln/",
     "/areas/wainfleet/"
   ],
-  "assembled_at": "2026-03-24T23:15:11.032607+00:00"
+  "assembled_at": "2026-03-25T00:44:15.221116+00:00"
 }
