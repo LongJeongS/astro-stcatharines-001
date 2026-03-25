@@ -624,6 +624,57 @@ ul { list-style: none; }
   body { padding-bottom: 58px; }
 }
 
+/* ── SERVICE AREAS GRID ─────────────────────────────────────────────────── */
+#service-areas { background: var(--white); }
+
+.areas-header { text-align: center; margin-bottom: 36px; }
+
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.area-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--color-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform var(--transition), box-shadow var(--transition),
+              border-color var(--transition), color var(--transition);
+}
+.area-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.area-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.area-card[data-area=""] { display: none; }
+
+.area-card-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.area-card-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+.area-card:hover .area-card-arrow { transform: translateX(3px); }
+
     /* ── SERVICE PAGE ────────────────────────────────────────────────────────── */
     .svc-hero { position: relative; background: var(--color-primary) center/cover no-repeat; min-height: 480px; display: flex; align-items: center; }
     .svc-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(to right, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, transparent 100%); }
@@ -875,6 +926,29 @@ ul { list-style: none; }
           <p>Custom backyard putting greens built to your layout. Specify your design and we'll construct it to spec — perfect for St. Catharines golf enthusiasts.</p>
           <a href="/services/custom-putting-greens/">Learn more →</a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Service Areas ────────────────────────────────────────────────────── -->
+  <section id="service-areas" class="section-pad" aria-labelledby="areas-heading">
+    <div class="container">
+      <div class="areas-header">
+        <span class="section-eyebrow">Where We Work</span>
+        <h2 class="section-title" id="areas-heading">Serving St. Catharines & the Niagara Region</h2>
+        <p class="section-subtitle" style="margin:0 auto 32px;">We serve homeowners and businesses across the Niagara Peninsula within a 40km radius of St. Catharines.</p>
+      </div>
+      <div class="areas-grid">
+        <a href="/areas/st-catharines/" class="area-card" data-area="St. Catharines"><span class="area-card-name">St. Catharines</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/niagara-falls/" class="area-card" data-area="Niagara Falls"><span class="area-card-name">Niagara Falls</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/welland/" class="area-card" data-area="Welland"><span class="area-card-name">Welland</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/thorold/" class="area-card" data-area="Thorold"><span class="area-card-name">Thorold</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/lincoln/" class="area-card" data-area="Lincoln"><span class="area-card-name">Lincoln</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/grimsby/" class="area-card" data-area="Grimsby"><span class="area-card-name">Grimsby</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/pelham/" class="area-card" data-area="Pelham"><span class="area-card-name">Pelham</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/niagara-on-the-lake/" class="area-card" data-area="Niagara-on-the-Lake"><span class="area-card-name">Niagara-on-the-Lake</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/west-lincoln/" class="area-card" data-area="West Lincoln"><span class="area-card-name">West Lincoln</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        <a href="/areas/wainfleet/" class="area-card" data-area="Wainfleet"><span class="area-card-name">Wainfleet</span><svg class="area-card-arrow" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </div>
     </div>
   </section>

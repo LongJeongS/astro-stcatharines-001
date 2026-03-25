@@ -624,6 +624,57 @@ ul { list-style: none; }
   body { padding-bottom: 58px; }
 }
 
+/* ── SERVICE AREAS GRID ─────────────────────────────────────────────────── */
+#service-areas { background: var(--white); }
+
+.areas-header { text-align: center; margin-bottom: 36px; }
+
+.areas-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 12px;
+}
+
+.area-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 14px 18px;
+  background: var(--color-bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-decoration: none;
+  color: var(--color-text);
+  font-weight: 600;
+  font-size: 15px;
+  transition: transform var(--transition), box-shadow var(--transition),
+              border-color var(--transition), color var(--transition);
+}
+.area-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+.area-card:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+.area-card[data-area=""] { display: none; }
+
+.area-card-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.area-card-arrow {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  transition: transform var(--transition);
+}
+.area-card:hover .area-card-arrow { transform: translateX(3px); }
+
     /* ── AREA PAGE ───────────────────────────────────────────────────────────── */
     .area-hero { position: relative; background: var(--color-primary) center/cover no-repeat; min-height: 400px; display: flex; align-items: center; }
     .area-hero::after { content:''; position:absolute; inset:0; background: linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.4) 100%); }
