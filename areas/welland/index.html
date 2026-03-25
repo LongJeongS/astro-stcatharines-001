@@ -29,9 +29,9 @@
   --border:          #e0dbd2;
   --text-mid:        #444444;
   --text-light:      #777777;
-  --shadow-sm:       0 2px 8px rgba(0,0,0,0.08);
+  --shadow-sm:       0 2px 12px rgba(0,0,0,0.07);
   --shadow-md:       0 4px 20px rgba(0,0,0,0.14);
-  --radius:          4px;
+  --radius:          6px;
   --max-w:           1200px;
   --transition:      0.2s cubic-bezier(0.25, 1, 0.5, 1);
 }
@@ -603,6 +603,17 @@ ul { list-style: none; }
     #cta-band h2 { font-family: var(--font-heading); font-size: clamp(24px,4vw,36px); font-weight: 700; color: var(--white); margin-bottom: 12px; }
     #cta-band p { font-size: 17px; color: rgba(255,255,255,0.9); margin-bottom: 28px; }
 
+    /* ── Area local FAQ ─────────────────────────────────────────────── */
+    .area-faq { padding: 56px 0; background: var(--color-bg); }
+    .faq-item { border-bottom: 1px solid var(--border); background: var(--white); margin-bottom: 4px; border-radius: var(--radius); overflow: hidden; }
+    .faq-question { width: 100%; text-align: left; background: none; border: none; padding: 20px 24px; font-size: 16px; font-weight: 600; color: var(--color-text); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: background var(--transition); font-family: inherit; }
+    .faq-question:hover { background: var(--color-bg); }
+    .faq-icon { width: 28px; height: 28px; border-radius: 50%; background: var(--color-bg); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 18px; font-weight: 300; color: var(--color-primary); transition: transform 0.25s, background 0.15s; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); background: var(--color-primary); color: var(--white); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.25, 1, 0.5, 1), padding 0.2s; }
+    .faq-answer-inner { padding: 0 24px 20px; font-size: 15px; color: var(--text-mid); line-height: 1.75; }
+    .faq-item.open .faq-answer { max-height: 2000px; }
+
     @media(max-width:992px){ .area-intro-grid{grid-template-columns:1fr;} .area-services-grid{grid-template-columns:1fr 1fr;} }
     @media(max-width:768px){ .area-services-grid{grid-template-columns:1fr;} .area-testimonials-grid{grid-template-columns:1fr;} }
   </style>
@@ -620,7 +631,7 @@ ul { list-style: none; }
         <li><a href="/faq/">FAQ</a></li>
       </ul>
       <div class="nav-actions">
-        <a href="tel:{{CALLRAIL_NUMBER}}" class="nav-phone" aria-label="Call us"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>{{CALLRAIL_NUMBER}}</a>
+        <a href="tel:+11112223333" class="nav-phone" aria-label="Call us"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+11112223333</a>
         <a href="/contact/" class="btn btn-primary">Get a Free Quote</a>
       </div>
       <button class="nav-hamburger" aria-label="Open menu" aria-expanded="false" onclick="toggleMenu(this)"><span></span><span></span><span></span></button>
@@ -634,7 +645,7 @@ ul { list-style: none; }
     <a href="/about/" onclick="closeMenu()">About</a>
     <a href="/reviews/" onclick="closeMenu()">Reviews</a>
     <a href="/faq/" onclick="closeMenu()">FAQ</a>
-    <a href="tel:{{CALLRAIL_NUMBER}}" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>{{CALLRAIL_NUMBER}}</a>
+    <a href="tel:+11112223333" onclick="closeMenu()" style="display:flex;align-items:center;gap:8px;"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>+11112223333</a>
     <a href="/contact/" class="btn btn-primary mobile-cta" onclick="closeMenu()">Get a Free Quote</a>
   </nav>
 </header>
@@ -663,9 +674,9 @@ ul { list-style: none; }
         <div class="area-cta-card">
           <h3>Get a Free Estimate</h3>
           <p>We serve Welland and surrounding neighbourhoods. Contact us today for a no-obligation quote.</p>
-          <a href="tel:{{CALLRAIL_NUMBER}}" class="area-cta-phone">
+          <a href="tel:+11112223333" class="area-cta-phone">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            {{CALLRAIL_NUMBER}}
+            +11112223333
           </a>
           <a href="/contact/" class="btn btn-primary" style="width:100%; justify-content:center;">Request a Quote</a>
         </div>
@@ -680,22 +691,22 @@ ul { list-style: none; }
       <h2 id="area-services-heading" class="section-title">Services Available in Welland</h2>
       <div class="area-services-grid">
         <div class="area-service-card">
-          <h3>Backyard Lawn Installation</h3>
+          <h3>Backyard Lawn Installation in Welland</h3>
           <p>Full-service astro turf installation for residential backyards of any size. We handle site prep, drainage, and installation from start to finish.</p>
           <a href="/services/backyard-lawn-installation/">Learn more →</a>
         </div>
         <div class="area-service-card">
-          <h3>Front Lawn Turf</h3>
+          <h3>Front Lawn Turf in Welland</h3>
           <p>Curb appeal without the maintenance. Our front lawn installations are designed to look natural year-round, even through Niagara winters.</p>
           <a href="/services/front-lawn-turf/">Learn more →</a>
         </div>
         <div class="area-service-card">
-          <h3>Custom Putting Greens</h3>
+          <h3>Custom Putting Greens in Welland</h3>
           <p>Custom backyard putting greens built to your layout. Specify your design and we'll construct it to spec — perfect for St. Catharines golf enthusiasts.</p>
           <a href="/services/custom-putting-greens/">Learn more →</a>
         </div>
         <div class="area-service-card">
-          <h3>Turf Repairs & Maintenance</h3>
+          <h3>Turf Repairs & Maintenance in Welland</h3>
           <p>Lifting edges, damaged sections, or worn-out infill — we repair and restore astro turf installations across the Niagara Region, including work originally done by other installers.</p>
           <a href="/services/turf-repairs-maintenance/">Learn more →</a>
         </div>
@@ -711,15 +722,15 @@ ul { list-style: none; }
       <div class="area-testimonials-grid">
         <div class="area-testimonial-card">
           <div class="area-testimonial-stars">★★★★★</div>
-          <blockquote class="area-testimonial-quote">"We were tired of watering and mowing every week. Tony's crew showed up Monday morning and by Wednesday we had a backyard we actually enjoy. Best decision we made for the house."</blockquote>
-          <div class="area-testimonial-meta">David K.</div>
-          <div class="area-testimonial-location">Port Dalhousie</div>
+          <blockquote class="area-testimonial-quote">"Tony and his crew wrapped up a 1,200 sq ft backyard in one long day. Couldn't believe how fast and clean they worked. Would hire again without hesitation."</blockquote>
+          <div class="area-testimonial-meta">Carlo P.</div>
+          <div class="area-testimonial-location">Grimsby</div>
         </div>
         <div class="area-testimonial-card">
           <div class="area-testimonial-stars">★★★★★</div>
-          <blockquote class="area-testimonial-quote">"Got quotes from three companies and Tony came in mid-range. What sold me was how he explained the drainage prep before starting. Over a year later and it still looks perfect."</blockquote>
-          <div class="area-testimonial-meta">Linda R.</div>
-          <div class="area-testimonial-location">Thorold</div>
+          <blockquote class="area-testimonial-quote">"We had a small section lifting near the fence. Amanda scheduled a repair visit within a few days and it was fixed in under an hour. Really solid after-sales care."</blockquote>
+          <div class="area-testimonial-meta">Anita M.</div>
+          <div class="area-testimonial-location">Pelham</div>
         </div>
       </div>
     </div>
@@ -738,11 +749,39 @@ ul { list-style: none; }
     </div>
   </section>
 
+  <!-- ── Local FAQs ────────────────────────────────────────────────────── -->
+  <section class="area-faq" aria-labelledby="area-faq-heading" style="">
+    <div class="container" style="max-width:760px;">
+      <span class="section-eyebrow">FAQs</span>
+      <h2 id="area-faq-heading" class="section-title" style="text-align:center;margin-bottom:32px;">Common Questions in Welland</h2>
+      <div role="list">
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>How much does astro turf installation cost in Welland?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Welland installations typically run $14–$20 per sq ft installed, depending on site prep requirements and turf grade selected. We provide free written quotes with no obligation — call or fill out the form to book your estimate.</div>
+          </div>
+        </div>
+        <div class="faq-item" role="listitem">
+          <button class="faq-question" aria-expanded="false" onclick="toggleFaq(this)">
+            <span>Do you service Welland properties near the Canal?</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">Yes. We install throughout Welland including properties near the Welland Canal and in the newer residential subdivisions to the west. Access to the yard is all we need — we handle everything from site prep to final brushing.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA Band ───────────────────────────────────────────────────────── -->
   <section id="cta-band" aria-labelledby="cta-heading">
     <div class="container">
       <h2 id="cta-heading">Ready to Transform Your Yard?</h2>
-      <p>Get a free, no-obligation estimate this week. We'll visit your St. Catharines property and provide a written quote within 24 hours.</p>
+      <p>Get a free, no-obligation estimate this week. We'll visit your Welland property and provide a written quote within 24 hours.</p>
       <a href="/contact/" class="cta-band-btn">Get a Free Estimate</a>
     </div>
   </section>
@@ -755,7 +794,7 @@ ul { list-style: none; }
   "@type": "LocalBusiness",
   "name": "Twelve Mile Turf Co.",
   "url": "https://twelvemileturf.ca",
-  "telephone": "{{CALLRAIL_NUMBER}}",
+  "telephone": "+11112223333",
   "areaServed": {"@type": "City", "name": "Welland"},
   "address": {"@type": "PostalAddress", "streetAddress": "St. Catharines, Ontario", "addressLocality": "St. Catharines", "addressRegion": "Ontario", "postalCode": "L2R 1B6", "addressCountry": "CA"},
   "geo": {"@type": "GeoCoordinates", "latitude": "43.1594", "longitude": "-79.2469"}
@@ -764,7 +803,7 @@ ul { list-style: none; }
 
 <footer id="site-footer" role="contentinfo">
   <div class="footer-top"><div class="container"><div class="footer-grid">
-    <div class="footer-col"><h4>Twelve Mile Turf Co.</h4><p>Niagara Region's trusted astro turf installers since 2015. Family-operated and built on referrals.</p><address class="footer-nap" style="font-style:normal;"><span>St. Catharines, Ontario</span><br><a href="tel:{{CALLRAIL_NUMBER}}" style="color:rgba(255,255,255,0.65);">{{CALLRAIL_NUMBER}}</a><br><a href="mailto:estimates@twelvemileturf.ca" style="color:rgba(255,255,255,0.65);">estimates@twelvemileturf.ca</a></address><div class="footer-social"><a href="https://www.facebook.com/twelvemileturf" aria-label="Facebook" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a href="https://www.instagram.com/twelvemileturf" aria-label="Instagram" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div></div>
+    <div class="footer-col"><h4>Twelve Mile Turf Co.</h4><p>Niagara Region's trusted astro turf installers since 2015. Family-operated and built on referrals.</p><address class="footer-nap" style="font-style:normal;"><span>St. Catharines, Ontario</span><br><a href="tel:+11112223333" style="color:rgba(255,255,255,0.65);">+11112223333</a><br><a href="mailto:estimates@twelvemileturf.ca" style="color:rgba(255,255,255,0.65);">estimates@twelvemileturf.ca</a></address><div class="footer-social"><a href="https://www.facebook.com/twelvemileturf" aria-label="Facebook" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a><a href="https://www.instagram.com/twelvemileturf" aria-label="Instagram" rel="noopener noreferrer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div></div>
     <div class="footer-col"><h4>Services</h4><ul><li><a href="/services/backyard-lawn-installation/">Backyard Lawn Installation</a></li><li><a href="/services/front-lawn-turf/">Front Lawn Turf</a></li><li><a href="/services/custom-putting-greens/">Custom Putting Greens</a></li><li><a href="/services/turf-repairs-maintenance/">Turf Repairs & Maintenance</a></li></ul></div>
     <div class="footer-col"><h4>Enquiry</h4><ul><li><a href="/contact/">Request Quote</a></li><li><a href="/about/">About Us</a></li><li><a href="/reviews/">Reviews</a></li><li><a href="/faq/">FAQ</a></li><li><a href="/privacy">Privacy Policy</a></li></ul></div>
     <div class="footer-col"><h4>Serving the Niagara Region</h4><ul><li><a href="/areas/st-catharines/">St. Catharines</a></li><li><a href="/areas/niagara-falls/">Niagara Falls</a></li><li><a href="/areas/welland/">Welland</a></li><li><a href="/areas/thorold/">Thorold</a></li><li><a href="/areas/lincoln/">Lincoln</a></li><li><a href="/areas/grimsby/">Grimsby</a></li></ul></div>
@@ -772,9 +811,10 @@ ul { list-style: none; }
   <div class="container"><div class="footer-bottom"><span>© 2026 Twelve Mile Turf Co.. Licensed &amp; Insured.</span><span>St. Catharines, Ontario, Canada</span></div></div>
 </footer>
 
-<a id="mobile-cta" href="tel:{{CALLRAIL_NUMBER}}" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now — {{CALLRAIL_NUMBER}}</a>
+<a id="mobile-cta" href="tel:+11112223333" aria-label="Call us now"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.15 12 19.79 19.79 0 011.1 3.18 2 2 0 013.1 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>Call Now — +11112223333</a>
 
 <script>
+  function toggleFaq(btn){var item=btn.closest('.faq-item');var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open');el.querySelector('.faq-question').setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');btn.setAttribute('aria-expanded','true');}}
   function toggleMenu(btn){var m=document.getElementById('mobile-nav');m.classList.toggle('open');btn.setAttribute('aria-expanded',String(!m.classList.contains('open')));}
   function closeMenu(){var m=document.getElementById('mobile-nav');m.classList.remove('open');var b=document.querySelector('.nav-hamburger');if(b)b.setAttribute('aria-expanded','false');}
   window.addEventListener('scroll',function(){var n=document.getElementById('site-nav');n.style.boxShadow=window.scrollY>10?'0 2px 16px rgba(0,0,0,0.25)':'0 2px 12px rgba(0,0,0,0.2)';},{passive:true});
