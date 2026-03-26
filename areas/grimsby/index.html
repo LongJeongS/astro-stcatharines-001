@@ -939,24 +939,6 @@ ul { list-style: none; }
   "address": {"@type": "PostalAddress", "streetAddress": "St. Catharines, Ontario", "addressLocality": "St. Catharines", "addressRegion": "Ontario", "postalCode": "L2R 1B6", "addressCountry": "CA"},
   "geo": {"@type": "GeoCoordinates", "latitude": "43.1594", "longitude": "-79.2469"}
 }
-
-  /* ── SERVICES DROPDOWN ── */
-  function toggleServicesMenu(e) {
-    e.stopPropagation();
-    var dd = document.querySelector('.nav-dropdown');
-    if (!dd) return;
-    var open = dd.hasAttribute('data-open');
-    dd.toggleAttribute('data-open', !open);
-    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', String(!open));
-  }
-  function closeServicesMenu() {
-    var dd = document.querySelector('.nav-dropdown');
-    if (!dd) return;
-    dd.removeAttribute('data-open');
-    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false');
-  }
-  document.addEventListener('click', closeServicesMenu);
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(); });
 </script>
 
 <footer id="site-footer" role="contentinfo">
@@ -976,6 +958,11 @@ ul { list-style: none; }
   function toggleMenu(btn){var m=document.getElementById('mobile-nav');m.classList.toggle('open');btn.setAttribute('aria-expanded',String(!m.classList.contains('open')));}
   function closeMenu(){var m=document.getElementById('mobile-nav');m.classList.remove('open');var b=document.querySelector('.nav-hamburger');if(b)b.setAttribute('aria-expanded','false');}
   window.addEventListener('scroll',function(){var n=document.getElementById('site-nav');n.style.boxShadow=window.scrollY>10?'0 2px 16px rgba(0,0,0,0.25)':'0 2px 12px rgba(0,0,0,0.2)';},{passive:true});
+  /* ── SERVICES DROPDOWN ── */
+  function toggleServicesMenu(e){e.stopPropagation();var dd=document.querySelector('.nav-dropdown');if(!dd)return;var open=dd.hasAttribute('data-open');dd.toggleAttribute('data-open',!open);dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded',String(!open));}
+  function closeServicesMenu(){var dd=document.querySelector('.nav-dropdown');if(!dd)return;dd.removeAttribute('data-open');dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded','false');}
+  document.addEventListener('click',closeServicesMenu);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeServicesMenu();});
 </script>
 </body>
 </html>

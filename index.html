@@ -78,24 +78,6 @@
     "priceRange": "$$",
     "image": "/images/hero_bg.jpg"
   }
-  
-  /* ── SERVICES DROPDOWN ── */
-  function toggleServicesMenu(e) {
-    e.stopPropagation();
-    var dd = document.querySelector('.nav-dropdown');
-    if (!dd) return;
-    var open = dd.hasAttribute('data-open');
-    dd.toggleAttribute('data-open', !open);
-    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', String(!open));
-  }
-  function closeServicesMenu() {
-    var dd = document.querySelector('.nav-dropdown');
-    if (!dd) return;
-    dd.removeAttribute('data-open');
-    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false');
-  }
-  document.addEventListener('click', closeServicesMenu);
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(); });
 </script>
 
   <!-- [SEO & Metadata Agent]:  -->
@@ -1571,6 +1553,7 @@ ul { list-style: none; }
     #stats-bar {
       background: var(--color-primary);
     }
+    #stats-bar:has(.stat-value:empty) { display: none; }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
@@ -2790,6 +2773,24 @@ ul { list-style: none; }
       nav.style.boxShadow = '0 2px 12px rgba(0,0,0,0.2)';
     }
   }, { passive: true });
+
+  /* ── SERVICES DROPDOWN ── */
+  function toggleServicesMenu(e) {
+    e.stopPropagation();
+    var dd = document.querySelector('.nav-dropdown');
+    if (!dd) return;
+    var open = dd.hasAttribute('data-open');
+    dd.toggleAttribute('data-open', !open);
+    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', String(!open));
+  }
+  function closeServicesMenu() {
+    var dd = document.querySelector('.nav-dropdown');
+    if (!dd) return;
+    dd.removeAttribute('data-open');
+    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false');
+  }
+  document.addEventListener('click', closeServicesMenu);
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(); });
 </script>
 
 </body>
