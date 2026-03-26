@@ -364,11 +364,11 @@ ul { list-style: none; }
 .nav-dropdown[data-open] .nav-chevron { transform: rotate(180deg); }
 
 .nav-dropdown-menu {
-  display: none;
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
   min-width: 240px;
+  max-width: calc(100vw - 24px); /* prevent right-edge clipping on narrow viewports */
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
@@ -376,8 +376,27 @@ ul { list-style: none; }
   z-index: 100;
   list-style: none;
   margin: 0;
+  /* Closed state — fade + slide up */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  visibility: hidden;
+  transition:
+    opacity 150ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0s linear 150ms;
 }
-.nav-dropdown[data-open] .nav-dropdown-menu { display: block; }
+.nav-dropdown[data-open] .nav-dropdown-menu {
+  /* Open state — fade + slide down */
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    opacity 200ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 200ms cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0s linear 0s;
+}
 .nav-dropdown-menu li { list-style: none; }
 .nav-dropdown-menu a {
   display: block;
@@ -794,7 +813,7 @@ ul { list-style: none; }
   </nav>
 </header>
 
-<main id="page-content" style="margin-top:68px;" aria-label="Service area page">
+<main id="page-content" style="margin-top:80px;" aria-label="Service area page">
 
   <!-- ── Area Hero ─────────────────────────────────────────────────────── -->
   <section class="area-hero" style="background-image:url('/images/why_us.jpg');">
@@ -963,10 +982,34 @@ ul { list-style: none; }
   function closeMenu(){var m=document.getElementById('mobile-nav');m.classList.remove('open');var b=document.querySelector('.nav-hamburger');if(b)b.setAttribute('aria-expanded','false');}
   window.addEventListener('scroll',function(){var n=document.getElementById('site-nav');n.style.boxShadow=window.scrollY>10?'0 2px 16px rgba(0,0,0,0.25)':'0 2px 12px rgba(0,0,0,0.2)';},{passive:true});
   /* ── SERVICES DROPDOWN ── */
-  function toggleServicesMenu(e){e.stopPropagation();var dd=document.querySelector('.nav-dropdown');if(!dd)return;var open=dd.hasAttribute('data-open');dd.toggleAttribute('data-open',!open);dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded',String(!open));}
-  function closeServicesMenu(){var dd=document.querySelector('.nav-dropdown');if(!dd)return;dd.removeAttribute('data-open');dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded','false');}
-  document.addEventListener('click',closeServicesMenu);
-  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeServicesMenu();});
+  function toggleServicesMenu(e) {
+    e.stopPropagation();
+    var dd = document.querySelector('.nav-dropdown');
+    if (!dd) return;
+    var open = dd.hasAttribute('data-open');
+    dd.toggleAttribute('data-open', !open);
+    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', String(!open));
+    if (!open) {
+      var firstLink = dd.querySelector('.nav-dropdown-menu a');
+      if (firstLink) requestAnimationFrame(function() { firstLink.focus(); });
+    }
+  }
+  function closeServicesMenu(returnFocus) {
+    var dd = document.querySelector('.nav-dropdown');
+    if (!dd || !dd.hasAttribute('data-open')) return;
+    dd.removeAttribute('data-open');
+    var trigger = dd.querySelector('.nav-dropdown-trigger');
+    trigger.setAttribute('aria-expanded', 'false');
+    if (returnFocus) trigger.focus();
+  }
+  (function() {
+    var evt = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
+    document.addEventListener(evt, function(e) {
+      var dd = document.querySelector('.nav-dropdown');
+      if (dd && !dd.contains(e.target)) closeServicesMenu(false);
+    });
+  })();
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(true); });
 </script>
 </body>
 </html>

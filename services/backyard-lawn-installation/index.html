@@ -375,11 +375,11 @@ ul { list-style: none; }
 .nav-dropdown[data-open] .nav-chevron { transform: rotate(180deg); }
 
 .nav-dropdown-menu {
-  display: none;
   position: absolute;
   top: calc(100% + 8px);
   left: 0;
   min-width: 240px;
+  max-width: calc(100vw - 24px); /* prevent right-edge clipping on narrow viewports */
   background: var(--white);
   border-radius: var(--radius);
   box-shadow: 0 8px 24px rgba(0,0,0,0.15);
@@ -387,8 +387,27 @@ ul { list-style: none; }
   z-index: 100;
   list-style: none;
   margin: 0;
+  /* Closed state — fade + slide up */
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-6px);
+  visibility: hidden;
+  transition:
+    opacity 150ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 150ms cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0s linear 150ms;
 }
-.nav-dropdown[data-open] .nav-dropdown-menu { display: block; }
+.nav-dropdown[data-open] .nav-dropdown-menu {
+  /* Open state — fade + slide down */
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  visibility: visible;
+  transition:
+    opacity 200ms cubic-bezier(0.25, 1, 0.5, 1),
+    transform 200ms cubic-bezier(0.25, 1, 0.5, 1),
+    visibility 0s linear 0s;
+}
 .nav-dropdown-menu li { list-style: none; }
 .nav-dropdown-menu a {
   display: block;
@@ -746,16 +765,17 @@ ul { list-style: none; }
     .svc-faq-question::marker, .svc-faq-question::-webkit-details-marker { display: none; }
     .svc-faq-question svg { flex-shrink: 0; transition: transform 0.25s; color: var(--color-accent); }
     details[open] .svc-faq-question svg { transform: rotate(45deg); }
+    .svc-faq-question:hover { background: rgba(0,0,0,0.025); }
     .svc-faq-answer { padding: 0 20px 18px; font-size: 15px; line-height: 1.7; color: var(--text-mid); }
 
     /* Related services */
     .related-services { padding: 72px 0; }
     .related-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 36px; }
-    .related-card { background: var(--color-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color var(--transition), box-shadow var(--transition); }
-    .related-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-sm); }
+    .related-card { background: var(--color-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; transition: border-color var(--transition), box-shadow var(--transition), transform var(--transition); text-decoration: none; }
+    .related-card:hover { border-color: var(--color-primary); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
     .related-card h3 { font-size: 18px; font-weight: 700; color: var(--color-primary); }
     .related-card p { font-size: 14px; line-height: 1.65; color: var(--text-mid); flex: 1; }
-    .related-card a { font-size: 14px; font-weight: 700; color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; }
+    .related-card-link { font-size: 14px; font-weight: 700; color: var(--color-accent); text-decoration: underline; text-underline-offset: 3px; pointer-events: none; }
 
     /* CTA band */
     #cta-band { background: var(--color-accent); padding: 40px 0; text-align: center; }
@@ -814,7 +834,7 @@ ul { list-style: none; }
   </nav>
 </header>
 
-<main id="page-content" style="margin-top:68px;" aria-label="Service page">
+<main id="page-content" style="margin-top:80px;" aria-label="Service page">
 
   <!-- ── Service Hero ───────────────────────────────────────────────────── -->
   <section class="svc-hero" style="background-image:url('/images/service_1_hero.jpg');" aria-label="Backyard astro turf installation by St. Catharines Turf Pros in St. Catharines">
@@ -839,22 +859,22 @@ ul { list-style: none; }
       <h2 id="benefits-heading" class="section-title">Why St. Catharines Homeowners Choose Us for Backyard Lawn Installation</h2>
       <div class="benefits-grid">
         <div class="benefit-card">
-          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
           <div class="benefit-title">Done in One Day</div>
           <div class="benefit-body">Most residential backyard installs in St. Catharines are completed in a single day, with minimal disruption to your schedule.</div>
         </div>
         <div class="benefit-card">
-          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
           <div class="benefit-title">No More Mowing</div>
           <div class="benefit-body">Say goodbye to weekly mowing. Our turf stays green and beautiful through Niagara Region seasons without any maintenance.</div>
         </div>
         <div class="benefit-card">
-          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
           <div class="benefit-title">Safe for Kids & Pets</div>
           <div class="benefit-body">Non-toxic, lead-free turf certified safe for children and animals, with cooling organic infill options.</div>
         </div>
         <div class="benefit-card">
-          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="benefit-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="6"/><path d="M8.56 2.75c4.37 6.03 6.02 9.42 8.03 17.72m2.54-15.38c-3.72 4.35-8.94 5.66-16.88 5.85m19.5 1.9c-3.5-.93-6.63-.82-8.94 0-2.58.92-5.01 2.86-7.44 6.32"/></svg></div>
           <div class="benefit-title">10-Year Warranty</div>
           <div class="benefit-body">Every Twelve Mile Turf installation is backed by a 10-year workmanship warranty and 15-year product warranty.</div>
         </div>
@@ -944,21 +964,21 @@ ul { list-style: none; }
       <span class="section-eyebrow">Also Available</span>
       <h2 id="related-heading" class="section-title">Explore Our Other Services</h2>
       <div class="related-grid">
-        <div class="related-card">
+        <a href="/services/front-lawn-turf/" class="related-card">
           <h3>Front Lawn Turf</h3>
           <p>Curb appeal without the maintenance. Our front lawn installations are designed to look natural year-round, even through Niagara winters.</p>
-          <a href="/services/front-lawn-turf/">Learn more →</a>
-        </div>
-        <div class="related-card">
+          <span class="related-card-link">Learn more →</span>
+        </a>
+        <a href="/services/custom-putting-greens/" class="related-card">
           <h3>Custom Putting Greens</h3>
           <p>Custom backyard putting greens built to your layout. Specify your design and we'll construct it to spec — perfect for St. Catharines golf enthusiasts.</p>
-          <a href="/services/custom-putting-greens/">Learn more →</a>
-        </div>
-        <div class="related-card">
+          <span class="related-card-link">Learn more →</span>
+        </a>
+        <a href="/services/turf-repairs-maintenance/" class="related-card">
           <h3>Turf Repairs & Maintenance</h3>
           <p>Lifting edges, damaged sections, or worn-out infill — we repair and restore astro turf installations across the Niagara Region, including work originally done by other installers.</p>
-          <a href="/services/turf-repairs-maintenance/">Learn more →</a>
-        </div>
+          <span class="related-card-link">Learn more →</span>
+        </a>
       </div>
     </div>
   </section>
@@ -1022,15 +1042,27 @@ ul { list-style: none; }
     var open = dd.hasAttribute('data-open');
     dd.toggleAttribute('data-open', !open);
     dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', String(!open));
+    if (!open) {
+      var firstLink = dd.querySelector('.nav-dropdown-menu a');
+      if (firstLink) requestAnimationFrame(function() { firstLink.focus(); });
+    }
   }
-  function closeServicesMenu() {
+  function closeServicesMenu(returnFocus) {
     var dd = document.querySelector('.nav-dropdown');
-    if (!dd) return;
+    if (!dd || !dd.hasAttribute('data-open')) return;
     dd.removeAttribute('data-open');
-    dd.querySelector('.nav-dropdown-trigger').setAttribute('aria-expanded', 'false');
+    var trigger = dd.querySelector('.nav-dropdown-trigger');
+    trigger.setAttribute('aria-expanded', 'false');
+    if (returnFocus) trigger.focus();
   }
-  document.addEventListener('click', closeServicesMenu);
-  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(); });
+  (function() {
+    var evt = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
+    document.addEventListener(evt, function(e) {
+      var dd = document.querySelector('.nav-dropdown');
+      if (dd && !dd.contains(e.target)) closeServicesMenu(false);
+    });
+  })();
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(true); });
 </script>
 </body>
 </html>
