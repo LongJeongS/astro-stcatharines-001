@@ -1001,13 +1001,15 @@ ul { list-style: none; }
         e.preventDefault();
         var btn = form.querySelector('[type="submit"]');
         if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
-        fetch(form.action, { method:'POST', mode:'no-cors', body: new FormData(form) })
-          .then(showThankYou).catch(showThankYou);
+        var formData = new FormData(form);
+        var sent = navigator.sendBeacon ? navigator.sendBeacon(form.action, formData) : false;
+        if (!sent) { fetch(form.action, { method:'POST', mode:'no-cors', body: formData }); }
         function showThankYou(){
           form.style.display = 'none';
           var ty = form.parentElement.querySelector('.form-thank-you');
-          if(ty){ ty.style.display = 'flex'; ty.setAttribute('tabindex','-1'); ty.focus(); }
+          if(ty){ ty.style.display = 'flex'; }
         }
+        showThankYou();
       });
     });
   })();
