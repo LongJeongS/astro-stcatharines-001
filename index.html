@@ -819,6 +819,13 @@ ul { list-style: none; }
 }
 .area-card:hover .area-card-arrow { transform: translateX(3px); }
 
+/* ── Form thank-you state ──────────────────────────────────────────────────── */
+.form-thank-you { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:48px 24px; gap:16px; min-height:200px; }
+.form-thank-you-icon { width:56px; height:56px; border-radius:50%; background:var(--color-accent); display:flex; align-items:center; justify-content:center; color:var(--white); flex-shrink:0; }
+.form-thank-you h3 { font-size:22px; margin:0; }
+.form-thank-you p  { color:var(--text-mid); font-size:15px; max-width:360px; margin:0; }
+.form-thank-you a  { color:var(--color-primary); font-weight:600; }
+
     /* ── HOME PAGE ──────────────────────────────────────────────────────────── */
 
     /* ═══════════════════════════════════════════
@@ -2574,6 +2581,7 @@ ul { list-style: none; }
           action="https://script.google.com/macros/s/AKfycbzPsOkncIN6MYMdpIY53cLJRaUiBPOoExh4jQH8xl-47uxU1JcgrBHKjKLoypgU3sJfvg/exec"
           method="POST"
           name="astro-stcatharines-001-contact"
+          data-leads-form
         >
           <input type="hidden" name="run_id" value="astro-stcatharines-001">
           <input type="hidden" name="source_page" value="https://twelvemileturf.ca">
@@ -2622,6 +2630,12 @@ ul { list-style: none; }
           </p>
 
         </form>
+        <div class="form-thank-you" id="home-thank-you" aria-live="polite">
+          <div class="form-thank-you-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <h3>We've got your request!</h3>
+          <p>We respond to all inquiries within 2 business hours on weekdays, and by end of day on Saturdays.</p>
+          <a href="/contact/">View full contact page</a>
+        </div>
       </div>
 
     </div>
@@ -2819,6 +2833,24 @@ ul { list-style: none; }
     });
   })();
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(true); });
+
+  /* ── LEADS FORM — async submit + inline thank-you ── */
+  (function(){
+    document.querySelectorAll('form[data-leads-form]').forEach(function(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = form.querySelector('[type="submit"]');
+        if(btn){ btn.disabled = true; btn.textContent = 'Sending…'; }
+        fetch(form.action, { method:'POST', mode:'no-cors', body: new FormData(form) })
+          .then(showThankYou).catch(showThankYou);
+        function showThankYou(){
+          form.style.display = 'none';
+          var ty = form.parentElement.querySelector('.form-thank-you');
+          if(ty){ ty.style.display = 'flex'; }
+        }
+      });
+    });
+  })();
 </script>
 
 </body>

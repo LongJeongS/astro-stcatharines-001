@@ -703,6 +703,13 @@ ul { list-style: none; }
 }
 .area-card:hover .area-card-arrow { transform: translateX(3px); }
 
+/* ── Form thank-you state ──────────────────────────────────────────────────── */
+.form-thank-you { display:none; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:48px 24px; gap:16px; min-height:200px; }
+.form-thank-you-icon { width:56px; height:56px; border-radius:50%; background:var(--color-accent); display:flex; align-items:center; justify-content:center; color:var(--white); flex-shrink:0; }
+.form-thank-you h3 { font-size:22px; margin:0; }
+.form-thank-you p  { color:var(--text-mid); font-size:15px; max-width:360px; margin:0; }
+.form-thank-you a  { color:var(--color-primary); font-weight:600; }
+
     /* ── CONTACT PAGE ────────────────────────────────────────────────────────── */
     .contact-hero { background: var(--color-primary); color: var(--white); padding: 56px 0 44px; margin-top: 80px; text-align: center; }
     .contact-hero .section-eyebrow { color: var(--color-accent); }
@@ -822,7 +829,7 @@ ul { list-style: none; }
         <!-- Left: Contact form -->
         <div class="contact-form-wrap">
           <h2>Request a Free Estimate</h2>
-          <form class="contact-form" name="contact" method="POST" action="https://script.google.com/macros/s/AKfycbzPsOkncIN6MYMdpIY53cLJRaUiBPOoExh4jQH8xl-47uxU1JcgrBHKjKLoypgU3sJfvg/exec">
+          <form class="contact-form" name="contact" method="POST" action="https://script.google.com/macros/s/AKfycbzPsOkncIN6MYMdpIY53cLJRaUiBPOoExh4jQH8xl-47uxU1JcgrBHKjKLoypgU3sJfvg/exec" data-leads-form>
             <input type="hidden" name="run_id" value="astro-stcatharines-001">
             <div class="form-row">
               <div class="form-group">
@@ -859,6 +866,12 @@ ul { list-style: none; }
             <button type="submit" class="form-submit">Get a Free Quote</button>
             <p class="form-disclaimer">No spam — ever. We'll respond within 1 business day.</p>
           </form>
+          <div class="form-thank-you" id="contact-thank-you" aria-live="polite">
+            <div class="form-thank-you-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <h3>We've got your request!</h3>
+            <p>We respond to all inquiries within 2 business hours on weekdays, and by end of day on Saturdays.</p>
+            <a href="/">Back to home</a>
+          </div>
         </div>
 
         <!-- Right: Contact info card -->
@@ -980,6 +993,24 @@ ul { list-style: none; }
     });
   })();
   document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeServicesMenu(true); });
+
+  /* ── LEADS FORM — async submit + inline thank-you ── */
+  (function(){
+    document.querySelectorAll('form[data-leads-form]').forEach(function(form){
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var btn = form.querySelector('[type="submit"]');
+        if(btn){ btn.disabled = true; btn.textContent = 'Sending\u2026'; }
+        fetch(form.action, { method:'POST', mode:'no-cors', body: new FormData(form) })
+          .then(showThankYou).catch(showThankYou);
+        function showThankYou(){
+          form.style.display = 'none';
+          var ty = form.parentElement.querySelector('.form-thank-you');
+          if(ty){ ty.style.display = 'flex'; ty.setAttribute('tabindex','-1'); ty.focus(); }
+        }
+      });
+    });
+  })();
 </script>
 </body>
 </html>
